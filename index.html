@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enregistrement des étudiants au CIUD</title>
+  <meta name="description" content="Minimal Form Interface: Simplistic, single input view form" />
+  <meta name="keywords" content="form, minimal, interface, single input, big form, responsive form, transition" />
+  <link rel="stylesheet" type="text/css" href="css/demo.css" />
+  <script src="js/modernizr.custom.js"></script>
+  <script src="js/dexie.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Top Navigation -->
+    <header class="Ciud-header">
+      <h1>Formulaire d'enregistrement des Membres du CIUD</h1>
+    </header>
+    <section>
+      <form id="theForm" class="simform" autocomplete="off">
+        <div class="simform-inner">
+          <ol class="questions">
+            <li>
+              <span><label for="nom">Entrer le nom de l'étudiant</label></span>
+              <input id="q1" name="nom" type="text" />
+            </li>
+            <li>
+              <span><label for="prenom">Entrer le prenom de l'étudiant</label></span>
+              <input id="q2" name="prenom" type="text" />
+            </li>
+            
+            <li>
+              <span><label for="id">identifiant de l'étudiant</label></span>
+              <input id="q4" readonly name="id" type="text" />
+            </li>
+            <li>
+              <span><label for="téléphone">Entrer son numéro de téléphone</label></span>
+              <input id="q5" name="teléphone" type="tel" />
+            </li>
+            <li>
+              <span><label for="whatsapp">Entrer son numéro whatsapp</label></span>
+              <input id="q6" name="whatsapp" type="tel" />
+            </li>
+
+            <li>
+              <span><label for="filière">Entrer sa filière</label></span>
+              <input type="text" id="q7" name="filière" />
+            </li>
+            
+            
+          </ol>
+          <!-- /questions -->
+          <div class="controls">
+            <button class="prev icon-arrow-left2"></button>
+            <button class="next icon-arrow-right2"></button>
+            <div class="progress"></div>
+            <span class="number">
+              <span class="number-current"></span>
+              <span class="number-total"></span>
+            </span>
+            <span class="error-message"></span>
+          </div>
+          <!-- / controls -->
+        </div>
+        <!-- /simform-inner -->
+        <div class="final-check"></div>
+        <div class="buttons">
+          <button class="submit" id="enreg" type="submit">
+            Enregistrer l'étudiant
+          </button>
+        </div>
+      </form>
+      <!-- /simform -->
+    </section>
+  </div>
+  <footer>
+    <p>By jay-ike</p>
+    <a href="./visuel.html">visualiser les différents enregistrements</a>
+  </footer>
+  <!-- /container -->
+  <script src="js/classie.js"></script>
+  <script src="js/stepsForm.js"></script>
+  <script>
+    var theForm = document.getElementById("theForm");
+
+    new stepsForm(theForm, {
+      onSubmit: function (form) {
+        // hide form
+        classie.addClass(theForm.querySelector(".simform-inner"), "hide");
+
+        messageEl = theForm.querySelector(".final-check");
+        let sources = theForm.querySelectorAll('ol.questions > li > input, ol.questions >li > select')
+        sources.forEach(inputs => {
+          createVisualizeField(inputs, messageEl);
+        })
+        theForm.style.paddingTop = '0';
+
+      }
+    });
+  </script>
+</body>
+
+</html>
